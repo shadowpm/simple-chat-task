@@ -1,0 +1,37 @@
+.direction {
+  width: 100%;
+  display: flex;
+}
+
+.direction.admin {
+  flex-direction: row-reverse;
+}
+
+.message-container {
+  border: 1px solid grey;
+  background-color: white;
+  border-radius: 6px;
+  padding: 16px;
+  width: fit-content;
+  max-width: 300px;
+  word-wrap: break-word;
+  margin-bottom: 16px;
+}
+
+.message-container.admin {
+  background-color: rgb(242, 236, 163);
+}
+
+.date-and-time {
+  margin-top: 8px;
+  color: grey;
+  font-size: 14px;
+  text-align: right;
+}
+
+.sender-name {
+  margin-bottom: 8px;
+  color: grey;
+  font-size: 14px;
+  text-align: left;
+}
