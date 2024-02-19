@@ -19,4 +19,4 @@ export const formatTimestamp = (timestamp: number): string => {
   const year = date.getUTCFullYear();
 
   return `${day} ${month} ${year}`;
-}
+};

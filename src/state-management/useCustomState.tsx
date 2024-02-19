@@ -1,4 +1,10 @@
-import { useEffect, useState, ChangeEvent, FormEvent, useCallback } from "react";
+import {
+  useEffect,
+  useState,
+  ChangeEvent,
+  FormEvent,
+  useCallback,
+} from "react";
 import { Message } from "../types/message";
 import { mergeMessages } from "../utilities/mergeMessages";
 import { getMessages } from "../services/getMessages";
@@ -20,10 +26,10 @@ export const useCustomState = () => {
 
   const { newMessage, allMessages, lastMessageIndex } = state;
 
-  const SET_NEW_MESSAGE = 'SET_NEW_MESSAGE';
-  const RECEIVE_MESSAGES = 'RECEIVE_MESSAGES';
+  const SET_NEW_MESSAGE = "SET_NEW_MESSAGE";
+  const RECEIVE_MESSAGES = "RECEIVE_MESSAGES";
 
-  const dispatch = (action: { type: string, payload?: any }) => {
+  const dispatch = (action: { type: string; payload?: any }) => {
     switch (action.type) {
       case SET_NEW_MESSAGE:
         setState((prevState) => ({
@@ -34,7 +40,10 @@ export const useCustomState = () => {
       case RECEIVE_MESSAGES:
         const { newMessages } = action.payload;
         const originalPart = allMessages.slice(0, lastMessageIndex + 1);
-        const remaining = allMessages.slice(lastMessageIndex + 1, allMessages.length);
+        const remaining = allMessages.slice(
+          lastMessageIndex + 1,
+          allMessages.length,
+        );
         const mergedMessages = mergeMessages(newMessages, remaining);
         setState((prevState) => ({
           ...prevState,
@@ -51,7 +60,10 @@ export const useCustomState = () => {
     const fetchData = async () => {
       try {
         const response = await getMessages();
-        dispatch({ type: RECEIVE_MESSAGES, payload: { messageTimestamp: 0, newMessages: response } });
+        dispatch({
+          type: RECEIVE_MESSAGES,
+          payload: { messageTimestamp: 0, newMessages: response },
+        });
       } catch (error) {
         console.error(error);
       }
@@ -61,14 +73,24 @@ export const useCustomState = () => {
   }, []);
 
   const getMessagesPeriodically = useCallback(async () => {
-    const messageTimestamp = lastMessageIndex > -1 ? allMessages[lastMessageIndex].timestamp : 0;
-    const newMessages = await getMessages(messageTimestamp, Number(messageLimit));
-    dispatch({ type: RECEIVE_MESSAGES, payload: { messageTimestamp, newMessages } });
+    const messageTimestamp =
+      lastMessageIndex > -1 ? allMessages[lastMessageIndex].timestamp : 0;
+    const newMessages = await getMessages(
+      messageTimestamp,
+      Number(messageLimit),
+    );
+    dispatch({
+      type: RECEIVE_MESSAGES,
+      payload: { messageTimestamp, newMessages },
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allMessages, lastMessageIndex]);
 
   useEffect(() => {
-    const interval = setInterval(getMessagesPeriodically, Number(reloadMessagesInterval));
+    const interval = setInterval(
+      getMessagesPeriodically,
+      Number(reloadMessagesInterval),
+    );
 
     return () => clearInterval(interval);
   }, [getMessagesPeriodically]);
@@ -80,7 +102,10 @@ export const useCustomState = () => {
         message: newMessage,
         author: "Alice",
       });
-      dispatch({ type: RECEIVE_MESSAGES, payload: { messageTimestamp: 0, newMessages: [message] } });
+      dispatch({
+        type: RECEIVE_MESSAGES,
+        payload: { messageTimestamp: 0, newMessages: [message] },
+      });
       dispatch({ type: SET_NEW_MESSAGE, payload: "" });
 
       scrollToBottom();
