@@ -30,7 +30,7 @@ npm start
 Now you can open http://localhost:3000 to view it in the browser.
 
 
-### Implementation
+## Implementation
 
 How this chat works is by calling the get messages api every 5 seconds (the duration can be changed in the application environment variables).
 
