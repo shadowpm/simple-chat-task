@@ -23,12 +23,12 @@ const MessageBox: React.FC<Props> = ({
     <div className={messageDirection}>
       <div className={messageContainer}>
         {!isAdminMessage && senderName && (
-          <div className="sender-name">
+          <div className="sender-name" data-testid="senderName">
             {senderName.charAt(0).toUpperCase() + senderName.slice(1)}
           </div>
         )}
-        <div>{htmlDecode(message)}</div>
-        <div className="date-and-time">
+        <div data-testid="decodedMessage">{htmlDecode(message)}</div>
+        <div className="date-and-time" data-testid="dateAndTime">
           {formatTimestamp(Number(dateAndTime))}
         </div>
       </div>
