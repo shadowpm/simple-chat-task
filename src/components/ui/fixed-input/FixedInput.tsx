@@ -14,7 +14,7 @@ const FixedInput: React.FC<Props> = ({
 }) => {
   return (
     <div className="form-container">
-      <form onSubmit={onSend}>
+      <form onSubmit={onSend} data-testid="messageForm">
         <label className="visually-hidden">Message:</label>
         <input
           value={enteredMessage}
