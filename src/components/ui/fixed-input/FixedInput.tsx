@@ -24,7 +24,11 @@ const FixedInput: React.FC = () => {
 
   return (
     <div className="fixed-form-container">
-      <form onSubmit={handleSubmit} data-testid="messageForm" className="fixed-form">
+      <form
+        onSubmit={handleSubmit}
+        data-testid="messageForm"
+        className="fixed-form"
+      >
         <label className="visually-hidden">Message:</label>
         <input
           value={message}
