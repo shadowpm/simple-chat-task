@@ -1,19 +1,26 @@
+import { type FormEvent, useContext, useState } from "react";
 import "./styles.css";
+import { StateContext } from "../../state/createStateContext";
+import { createSetUsername } from "../../state/actionCreators";
 
-interface Props {
-  nameValue?: string;
-  onChangeName: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
-}
+const UserForm: React.FC = () => {
+  const [userName, setUserName] = useState("");
+  const { dispatch } = useContext(StateContext);
 
-const UserForm: React.FC<Props> = ({ nameValue, onChangeName, onSubmit }) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (userName.trim()) {
+      dispatch(createSetUsername(userName.trim()));
+    }
+  };
+
   return (
     <div className="form-container">
-      <form className="name-form" onSubmit={onSubmit}>
+      <form className="name-form" onSubmit={handleSubmit}>
         <label>Please enter your name:</label>
         <input
-          value={nameValue}
-          onChange={onChangeName}
+          value={userName}
+          onChange={(event) => setUserName(event.target.value)}
           placeholder="e.g. Lilly"
         />
         <input type="submit" value="Enter" />

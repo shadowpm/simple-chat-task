@@ -4,7 +4,6 @@ import { ActionType } from "../state/actionTypes";
 import { useEffect } from "react";
 import { State } from "../state/state";
 import { createReceivedMessages } from "../state/actionCreators";
-import { scrollToBottom } from "../utilities/scrollToBottom";
 
 export const getMessagesPeriodically = async (
   lastMessageTimestamp: number,
@@ -14,9 +13,6 @@ export const getMessagesPeriodically = async (
     lastMessageTimestamp === 0
       ? await getMessages()
       : await getMessages(lastMessageTimestamp, Number(messageLimit));
-  if (messages.length > 0) {
-    scrollToBottom();
-  }
   dispatch(createReceivedMessages(messages));
 };
 

@@ -1,34 +1,27 @@
-import { useMemo, useReducer, useState, FormEvent } from "react";
+import { useMemo, useReducer, useEffect } from "react";
 import MessageBox from "./components/ui/message-box/MessageBox";
-import FixedInput from "./components/ui/fixed-input/FixedInput";
+import FixedInput from "./components/fixed-input/FixedInput";
 import { StateContext } from "./state/createStateContext";
 import "./App.css";
 import { initialState, reducer } from "./state/state";
 import { usePeriodicMessageReceiver } from "./hooks/usePeriodicMessageReceiver";
 import UserForm from "./components/user-form/UserForm";
+import { scrollToBottom } from "./utilities/scrollToBottom";
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [userName, setUserName] = useState("");
   const stateValue = useMemo(() => ({ state, dispatch }), [state, dispatch]);
 
   usePeriodicMessageReceiver(stateValue);
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (userName.trim()) {
-      dispatch({ type: "SET_USERNAME", payload: userName });
-    }
-  };
+  useEffect(() => {
+    scrollToBottom();
+  }, [state.messages?.length, state.sentMessages.length]);
 
   return (
     <StateContext.Provider value={stateValue}>
       {state.username === "" ? (
-        <UserForm
-          nameValue={userName}
-          onChangeName={(event) => setUserName(event.target.value)}
-          onSubmit={handleSubmit}
-        />
+        <UserForm />
       ) : (
         <div>
           <div className="chat-container">
