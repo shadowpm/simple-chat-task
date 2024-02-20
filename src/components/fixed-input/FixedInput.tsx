@@ -1,9 +1,8 @@
 import { type FormEvent, useContext, useState } from "react";
 import "./styles.css";
-import { StateContext } from "../../../state/createStateContext";
-import { sendMessage } from "../../../services/sendMessage";
-import { createSentMessage } from "../../../state/actionCreators";
-import { scrollToBottom } from "../../../utilities/scrollToBottom";
+import { StateContext } from "../../state/createStateContext";
+import { sendMessage } from "../../services/sendMessage";
+import { createSentMessage } from "../../state/actionCreators";
 
 const FixedInput: React.FC = () => {
   const { dispatch, state } = useContext(StateContext);
@@ -18,7 +17,6 @@ const FixedInput: React.FC = () => {
       });
       dispatch(createSentMessage(sentMessage));
       setMessage("");
-      scrollToBottom();
     }
   };
 
