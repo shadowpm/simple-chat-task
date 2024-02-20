@@ -9,3 +9,7 @@ export const createReceivedMessages = (messages: Message[]): ActionType => ({
   type: "RECEIVE_MESSAGES",
   payload: messages,
 });
+export const createSetUsername = (username: string): ActionType => ({
+  type: "SET_USERNAME",
+  payload: username,
+});
