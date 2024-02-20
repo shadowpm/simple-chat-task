@@ -34,7 +34,7 @@ Now you can open http://localhost:3000 to view it in the browser.
 
 How this chat works is by calling the get messages api every 5 seconds (the duration can be changed in the application environment variables).
 
-When the user sends a message, the newly sent messages and the newly recieved messages(from the updated timestamp), will be compared and merged, so that there is no gap or window, in which the user will miss the recieving messages, from the point the user sends messages until the messages are periodically updated.
+When the user sends a message, the newly sent messages and the newly recieved messages(from the updated timestamp) will be compared, and the repeated messages between the two will be removed, so that there is no gap or window, in which the user will miss the recieving messages, from the point the user sends messages until the messages are periodically updated, while there also will be no duplicated messages.
 
 
 ## Available Scripts
