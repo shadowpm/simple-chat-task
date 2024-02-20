@@ -1,24 +1,34 @@
-import { ChangeEvent, FormEvent } from "react";
+import { type FormEvent, useContext, useState } from "react";
 import "./styles.css";
+import { StateContext } from "../../../state/createStateContext";
+import { sendMessage } from "../../../services/sendMessage";
+import { createSentMessage } from "../../../state/actionCreators";
+import { scrollToBottom } from "../../../utilities/scrollToBottom";
 
-interface Props {
-  enteredMessage: string;
-  setEnteredMessage: (value: ChangeEvent<HTMLInputElement>) => void;
-  onSend: (event: FormEvent<HTMLFormElement>) => void;
-}
+const FixedInput: React.FC = () => {
+  const { dispatch, state } = useContext(StateContext);
+  const [message, setMessage] = useState("");
 
-const FixedInput: React.FC<Props> = ({
-  enteredMessage,
-  setEnteredMessage,
-  onSend,
-}) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (message.trim()) {
+      const sentMessage = await sendMessage({
+        message: message.trim(),
+        author: state.username,
+      });
+      dispatch(createSentMessage(sentMessage));
+      setMessage("");
+      scrollToBottom();
+    }
+  };
+
   return (
     <div className="form-container">
-      <form onSubmit={onSend} data-testid="messageForm">
+      <form onSubmit={handleSubmit} data-testid="messageForm">
         <label className="visually-hidden">Message:</label>
         <input
-          value={enteredMessage}
-          onChange={setEnteredMessage}
+          value={message}
+          onChange={(event) => setMessage(event.target.value)}
           className="messsage-field"
           placeholder="Message"
         />
