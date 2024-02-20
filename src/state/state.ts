@@ -14,7 +14,7 @@ export const initialState: State = {
   lastReceivedMessageTimestamp: 0,
   messages: undefined,
   sentMessages: [],
-  username: "Alice",
+  username: "",
 };
 
 export const reducer = (state: State, action: ActionType): State => {

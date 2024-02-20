@@ -1,4 +1,4 @@
-.form-container {
+.fixed-form-container {
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -8,7 +8,7 @@
   box-sizing: border-box;
 }
 
-form {
+.fixed-form {
   display: flex;
   align-items: center;
   justify-content: center;

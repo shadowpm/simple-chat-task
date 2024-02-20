@@ -10,7 +10,6 @@ export const getMessagesPeriodically = async (
   lastMessageTimestamp: number,
   dispatch: React.Dispatch<ActionType>,
 ) => {
-  console.log('gt messages', lastMessageTimestamp)
   const messages =
     lastMessageTimestamp === 0
       ? await getMessages()
@@ -25,9 +24,7 @@ export const usePeriodicMessageReceiver = (stateValue: {
   dispatch: React.Dispatch<ActionType>;
   state: State;
 }) => {
-  console.log('in hook')
   useEffect(() => {
-    console.log('setinterval')
     const interval = setInterval(
       () =>
         getMessagesPeriodically(
@@ -38,8 +35,7 @@ export const usePeriodicMessageReceiver = (stateValue: {
     );
 
     return () => {
-      console.log('clear')
       clearInterval(interval);
-    }
+    };
   }, [stateValue.state.lastReceivedMessageTimestamp, stateValue.dispatch]);
 };
