@@ -21,7 +21,6 @@ function App() {
     }
   };
 
-  console.log("here", state.username);
   return (
     <StateContext.Provider value={stateValue}>
       {state.username === "" ? (
