@@ -1,6 +1,6 @@
 # Simple chat task overview
 
-This application consists of a single chatting page, similar to a chat room.
+This application consists of a simple form that gets the user name, and the single chatting page, similar to a chat room.
 User can send and recieve messages.
 
 <b>Implementation duration:</b> about 3 hours
