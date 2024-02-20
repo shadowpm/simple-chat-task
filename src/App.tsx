@@ -40,7 +40,10 @@ function App() {
                 message={message.message}
                 senderName={message.author}
                 dateAndTime={message.timestamp.toString()}
-                isAdminMessage={message.author === state.username}
+                isAdminMessage={
+                  message.author.toLocaleLowerCase() ===
+                  state.username.toLocaleLowerCase()
+                }
               />
             ))}
             {state.sentMessages.map((message) => (
@@ -49,7 +52,10 @@ function App() {
                 message={message.message}
                 senderName={message.author}
                 dateAndTime={message.timestamp.toString()}
-                isAdminMessage={message.author === state.username}
+                isAdminMessage={
+                  message.author.toLocaleLowerCase() ===
+                  state.username.toLocaleLowerCase()
+                }
               />
             ))}
           </div>
